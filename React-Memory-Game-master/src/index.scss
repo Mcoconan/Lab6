@@ -1,0 +1,413 @@
+
+@import url('https://fonts.googleapis.com/css?family=Black+Han+Sans|Roboto');
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(5deg);
+  }
+  40% {
+    transform: rotate(-5deg);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+  80% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+  
+}
+
+
+
+@keyframes pop-away {
+  0% {
+    transform: scale(1, 1) translate(0, 0);
+  }
+  40% {
+    transform: scale(1.1, 1.1);
+  }
+  65% {
+    opacity: 1;
+  }
+  99% {
+    transform: scale(.5, .5);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-10000em, -10000em);
+  }
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.center-child {
+  background-image: url("https://lh3.googleusercontent.com/tXMKpkcphQbmlUN33ar4PxYEQ2QXO20ectz1gA7-W43DEiGmt9xP5WhrY8CBudrfG3E=w500-h280-rw") no-repeat 0 0;
+  background-size: 10px 10px;
+  background-repeat: repeat;
+  width: 100%;
+  height: 100%;
+}
+
+body::after {
+ 
+  background: url("https://lh3.googleusercontent.com/tXMKpkcphQbmlUN33ar4PxYEQ2QXO20ectz1gA7-W43DEiGmt9xP5WhrY8CBudrfG3E=w500-h280-rw") no-repeat 0 0;;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.memory-app {
+  position: relative;
+}
+
+.center-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.homescreen {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+
+.homescreen--visible {
+  animation-name: pop-in;
+  animation-duration: .75s;
+  animation-fill-mode: forwards;
+}
+
+.homescreen--hidden {
+ 
+  animation-name: pop-away;
+  animation-duration: .75s;
+  animation-fill-mode: forwards;
+}
+
+.homescreen__box {
+
+}
+
+.homescreen__title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 6vw;
+  display: block;
+  margin: 0;
+  color: rgb(7, 14, 34);
+  line-height: 8vw;
+  opacity: 0;
+}
+
+.homescreen__stats {
+  text-transform: uppercase;
+  font-size: 3vw;
+  color: #fff;
+  margin-bottom: .3em;
+  opacity: 0;
+}
+
+.homescreen__number {
+  color: #ffcc00;
+}
+
+.homescreen__shuffle-button {
+  position: relative;
+  left: 200px;
+  top: -100px;
+  font-size: 5vw;
+  font-family: 'Impact', 'Charcoal', sans-serif;
+  border-radius: 50%;
+  border: 0;
+  height: 22vw;
+  text-transform: uppercase;
+  border: 1px solid yellow;
+  color: rgb(29, 21, 7);
+  background-color: transparent;
+  background: linear-gradient(to bottom, rgb(4, 61, 252) 0%, rgb(4, 166, 230) 100%); //width: 50%;
+  outline: 0;
+  transition: all .25s;
+  transition-timing-function: ease-out;
+  padding-left: 7vw;
+  padding-right: 7vw;
+  &:hover {
+    background: #0a60ff;
+    border-color: rgb(27, 21, 9);
+  }
+}
+
+.cards {
+  display: grid;
+  height:650px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  background: rgba(114, 186, 94, 0.05);
+  justify-items: center;
+}
+
+.card {
+  width: 89px;
+  height: 133px;
+  text-align: center;
+  transition: all .2s;
+  perspective: 800;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.card--removed {
+  animation-name: shake;
+  animation-duration: .3s;
+}
+
+.card--selected {
+  //transform: rotate(20deg);
+}
+
+.card--selected .card__inner,
+.card--removed .card__inner {
+  transform: rotatey(-180deg);
+}
+
+.card--unselected .card__front {
+  cursor: pointer;
+  transition: box-shadow .3s;
+  &:hover {
+    box-shadow: 0px 0px 20px #f700ff;
+  }
+  &:active {
+    //transform: scale(.97);
+  }
+}
+
+.card__inner {
+  //background-color: white;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: all .5s;
+}
+
+.card__face {
+  
+  width: 100%;
+  height: 100%;
+  background-color: pink; 
+  position: absolute;
+  border-radius: 5%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__front {
+  
+  background: url("https://github.com/Mario9810/images-/blob/master/D6qwrT0X4AE151G%20(2).jpg?raw=true") no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  z-index: 1;
+  &::before {
+    
+    width: 100%;
+    height: 100%;
+    opacity: .1;
+    content: '';
+  }
+}
+
+.card__back {
+  z-index: 2;
+  transform: rotatey(-180deg);
+
+}
+
+.card__back::before {
+  content: "";
+  font-size: 10vw;
+  display: block; 
+}
+
+.card__back::after {
+  content: "";
+  font-size: 3vw;
+  color: #fff;
+  display: block;
+}
+
+.card--veigar .card__back {
+  background-color: pink;
+  &::before {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background: url("https://github.com/Mario9810/images-/blob/master/veigar.png?raw=true") no-repeat 0 0;
+    background-size: cover;
+    vertical-align: left;
+    border-radius: 5%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: left;
+    justify-content: center;
+  
+  } 
+}
+
+.card--swain .card__back {
+  background-color: green;
+  &::before {
+       width: 100%;
+       height: 100%;
+       content: "";
+       background: url("https://i.pinimg.com/originals/ef/df/ed/efdfedf3fad6b232abc4103c7ce879ce.jpg") no-repeat 0 0;
+       background-size: cover;
+       position: absolute;
+       border-radius: 5%;
+       backface-visibility: hidden;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+  }
+}
+
+.card--nasus .card__back {
+  background-color: green;
+  &::before {
+    width: 100%;
+    height: 100%;
+    content: "";
+    background: url("https://vignette.wikia.nocookie.net/leagueoflegendsoficial/images/8/86/Nasus_loading_screen.jpg/revision/latest/scale-to-width-down/340?cb=20161105042725&path-prefix=es") no-repeat 0 0;
+    background-size: cover;
+    position: absolute;
+    border-radius: 5%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  } 
+}
+
+.card--kindred .card__back {
+  background-color: goldenrod;
+  &::before {
+     width: 100%;
+     height: 100%;
+     content: "";
+     background: url("https://static.zerochan.net/Kindred.full.2006354.jpg") no-repeat 0 0;
+     background-size: cover;
+     position: absolute;
+     border-radius: 5%;
+     backface-visibility: hidden;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+  } 
+}
+
+.card--karthus .card__back {
+  background-color: brown;
+  &::before {
+     width: 100%;
+     height: 100%;
+     content: "";
+     background: url("https://lol-stats.net/uploads/h8kJxygBLmMzQKHcFo85YowEzGdu2eiMO6wHGD2I.png") no-repeat 0 0;
+     background-size: cover;
+     position: absolute;
+     border-radius: 5%;
+     backface-visibility: hidden;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+  } 
+}
+
+.card--aatrox .card__back {
+  background-color: blue;
+  &::before {
+     width: 100%;
+     height: 100%;
+     content: "";
+     background: url("https://4.bp.blogspot.com/-RMcO6H_tloM/XDfT2RvvPQI/AAAAAAAAAFM/7wyB25YG8SU5wbTh8Yv7W8EbVpfscfSdQCPcBGAYYCw/w2048-h2732-c/blood-moon-aatrox-prestige-edition-splash-art.jpg") no-repeat 0 0;
+     background-size: cover;
+     position: absolute;
+     border-radius: 5%;
+     backface-visibility: hidden;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+  } 
+  
+}
+
+.card--kassadin .card__back {
+  background-color: blue;
+  &::before {
+     width: 100%;
+     height: 100%;
+     content: "";
+     background: url("https://4.bp.blogspot.com/-zJmy1u6wzwk/UuGIpQT2tTI/AAAAAAAAAG0/oDEP6EqEQGQ/s1600/League-of-Legends-Kassadin-Darkknight-Wallpaperasd.jpg") no-repeat 0 0;
+     background-size: cover;
+     position: absolute;
+     border-radius: 5%;
+     backface-visibility: hidden;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+  } 
+  
+}
+
+.card--sona .card__back {
+  background-color: blue;
+  &::before {
+     width: 100%;
+     height: 100%;
+     content: "";
+     background: url("https://lol-stats.net/uploads/RN53xX5XENlZCTaD7UmVTuAzWSyrfNVWEJuy8HHJ.jpeg") no-repeat 0 0;
+     background-size: cover;
+     position: absolute;
+     border-radius: 5%;
+     backface-visibility: hidden;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+  } 
+  
+}
